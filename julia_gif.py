@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 from PIL import Image
 import os
@@ -58,6 +58,8 @@ def get_color(bg_ratio, ratio):
 
 
 def gen_julia(Z, c, bg_ratio, ratio):
+    tf.disable_v2_behavior()
+
     xs = tf.constant(np.full(shape=Z.shape, fill_value=c, dtype=Z.dtype))
     zs = tf.Variable(Z)
     ns = tf.Variable(tf.zeros_like(xs, tf.float32))

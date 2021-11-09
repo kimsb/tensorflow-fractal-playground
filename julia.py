@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 from PIL import Image
 
@@ -20,6 +20,8 @@ def get_color(bg_ratio, ratio):
 
 
 def gen_julia(Z, c, bg_ratio, ratio):
+    tf.disable_v2_behavior()
+
     xs = tf.constant(np.full(shape=Z.shape, fill_value=c, dtype=Z.dtype))
     zs = tf.Variable(Z)
     ns = tf.Variable(tf.zeros_like(xs, tf.float32))
@@ -47,8 +49,8 @@ if __name__ == '__main__':
     start_y = -1.1  # y range
     end_y = 1.1
     width = 1200  # image width
-    c = -0.835 - 0.2321 * 1j
-    bg_ratio = (4, 2.5, 1)
+    c = -0.8 * 1j
+    bg_ratio = (1, 3.5, 3.5)
     ratio = (0.9, 0.9, 0.9)
 
     step = (end_x - start_x) / width

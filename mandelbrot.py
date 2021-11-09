@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 from PIL import Image
 
@@ -19,6 +19,9 @@ def color(z, i):
 
 
 def gen_mandelbrot(Z):
+
+    tf.compat.v1.disable_v2_behavior()
+
     xs = tf.constant(Z.astype(np.complex64))
     zs = tf.Variable(xs)
     ns = tf.Variable(tf.zeros_like(xs, tf.float32))
